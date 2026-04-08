@@ -19,7 +19,12 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "erasableSyntaxOnly": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+    "paths": {
+      "@pages/*": ["./src/pages/*"],
+      "@shared": ["./src/shared/*"],
+      "@features": ["./src/features/*"]
+    }
   },
   "include": ["src"]
 }
