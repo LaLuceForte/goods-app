@@ -33,6 +33,7 @@ export const LoginField = ({
       value={value}
       onChange={handleChange}
       inputRef={inputRef}
+      autoComplete="current-login"
       slotProps={{
         input: {
           startAdornment: (

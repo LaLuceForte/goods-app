@@ -30,6 +30,7 @@ export const PasswordField = ({
       value={value}
       onChange={handleChange}
       type={showPassword ? "text" : "password"}
+      autoComplete="current-password"
       slotProps={{
         input: {
           startAdornment: (

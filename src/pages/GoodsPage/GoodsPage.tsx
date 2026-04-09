@@ -1,3 +1,9 @@
+import { GoodsGrid } from "@features/GoodsGrid";
+
 export default function GoodsPage() {
-  return <>goods GoodsPage</>;
+  return (
+    <div className="h-screen">
+      <GoodsGrid />
+    </div>
+  );
 }
