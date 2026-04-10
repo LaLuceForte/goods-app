@@ -18,10 +18,15 @@ export interface ProductsData {
 export const getProducts = async (
   skip: number = 0,
   search: string = "",
+  sortBy?: string | null,
+  order?: "asc" | "desc" | null,
 ): Promise<ProductsData | null> => {
   const limit = 20;
   try {
-    const url = `${PRODUCTS_URL}${search ? `/search?q=${search}&` : "?"}limit=${limit}&skip=${skip}`;
+    let url = `${PRODUCTS_URL}${search ? `/search?q=${search}&` : "?"}limit=${limit}&skip=${skip}`;
+    if (sortBy && order) {
+      url += `&sortBy=${sortBy}&order=${order}`;
+    }
 
     const res = await fetch(url, {
       method: "GET",
@@ -30,7 +35,6 @@ export const getProducts = async (
 
     const data = await res.json();
 
-    console.log(data);
     if (!res.ok || !data || !data.products) {
       throw new Error(data.message);
     }

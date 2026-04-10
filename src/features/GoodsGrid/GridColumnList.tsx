@@ -2,7 +2,11 @@ import { AddCircleOutline, MoreHorizOutlined } from "@mui/icons-material";
 import { IconButton } from "@mui/material";
 import { type GridColDef } from "@mui/x-data-grid";
 
-export const GridColumnList: GridColDef[] = [
+export const GridColumnList = ({
+  onAddClick,
+}: {
+  onAddClick: () => void;
+}): GridColDef[] => [
   {
     headerName: "Наименование",
     flex: 1,
@@ -33,6 +37,16 @@ export const GridColumnList: GridColDef[] = [
     headerName: "Оценка",
     flex: 1,
     field: "rating",
+    renderCell: function (params) {
+      return (
+        <div>
+          <span className={params.value < 3.5 ? "text-red-600" : "text-black"}>
+            {params.value.toFixed(1)}
+          </span>
+          /5
+        </div>
+      );
+    },
   },
   {
     headerName: "Цена",
@@ -48,6 +62,7 @@ export const GridColumnList: GridColDef[] = [
     renderCell: () => {
       const onClick = (e: React.MouseEvent) => {
         e.stopPropagation();
+        onAddClick();
       };
 
       return (

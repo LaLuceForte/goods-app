@@ -2,22 +2,22 @@ import InputAdornment from "@mui/material/InputAdornment";
 import TextField from "@mui/material/TextField";
 import CancelIcon from "@mui/icons-material/Cancel";
 import SearchIcon from "@mui/icons-material/Search";
-import type { GridToolbarProps } from "@mui/x-data-grid/internals";
-
 import { useState } from "react";
-
 import GridHeader from "./GridHeader";
 
-type GridTbarProps = GridToolbarProps & {
+type GridTbarProps = {
   onSearchChange?: (term: string) => void;
+  onAddClick?: () => void;
+  onRefreshClick?: () => void;
 };
 
 export function GridTbar(props: GridTbarProps): React.ReactElement {
   const [searchValue, setSearchValue] = useState<string>("");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchValue(e.target.value);
-    props.onSearchChange?.(e.target.value);
+    const value = e.target.value;
+    setSearchValue(value);
+    props.onSearchChange?.(value);
   };
 
   const handleClear = () => {
@@ -27,8 +27,8 @@ export function GridTbar(props: GridTbarProps): React.ReactElement {
 
   return (
     <div>
-      <div className="mt-5 h-26.25 flex items-center  bg-white mb-7.5">
-        <div className="text-[20px] pl-7.5 font-bold ">Товары</div>
+      <div className="mt-5 h-26.25 flex items-center bg-white mb-7.5">
+        <div className="text-[20px] pl-7.5 font-bold">Товары</div>
         <div className="flex flex-1 justify-center">
           <TextField
             onChange={handleChange}
@@ -63,7 +63,10 @@ export function GridTbar(props: GridTbarProps): React.ReactElement {
           />
         </div>
       </div>
-      <GridHeader />
+      <GridHeader
+        onAddClick={props.onAddClick}
+        onRefreshClick={props.onRefreshClick}
+      />
     </div>
   );
 }
