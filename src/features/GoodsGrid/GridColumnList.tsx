@@ -82,7 +82,6 @@ export const GridColumnList = ({
       const onClick = (e: React.MouseEvent) => {
         e.stopPropagation();
       };
-
       return (
         <IconButton onClick={onClick} size="small" color="primary">
           <MoreHorizOutlined />

@@ -56,6 +56,31 @@ export default function GoodsGrid() {
   }, [paginationModel.page, paginationModel.pageSize, searchValue, apiRef]);
 
   useEffect(() => {
+    const savedSort = localStorage.getItem("goodsGridSort");
+    if (savedSort) {
+      const { field, sort } = JSON.parse(savedSort);
+      apiRef.current?.sortColumn(field, sort);
+    }
+  }, [apiRef]);
+
+  useEffect(() => {
+    const saveSort = () => {
+      const sortModel = apiRef.current?.getSortModel()?.[0];
+      if (sortModel) {
+        localStorage.setItem("goodsGridSort", JSON.stringify(sortModel));
+      } else {
+        localStorage.removeItem("goodsGridSort");
+      }
+    };
+
+    const unsubscribe = apiRef.current?.subscribeEvent(
+      "sortModelChange",
+      saveSort,
+    );
+    return () => unsubscribe?.();
+  }, [apiRef]);
+
+  useEffect(() => {
     loadProducts();
   }, [loadProducts]);
 
